@@ -10,7 +10,7 @@ Task :
 
 ![](data/Finalplot.png)
 
-# Here is the viddeo of the graph (completed all the above task)
+# Here is the video link of the graph (completed all the above task)
 
-![](data/Dash(AAPL%20Open%20VS%20AAPL%20Close).mp4)
+[![]](data/Dash(AAPL%20Open%20VS%20AAPL%20Close).mp4)
 
