@@ -16,11 +16,11 @@ df_aapl_slice = df_aapl_raw[2:].reset_index()
 
 df_aapl_slice['Year'] = pd.DatetimeIndex(df_aapl_slice['Date']).year
 
-
-high1 = [-10.44, -25.28, -15.49]
+Dates1 = ['04.02.2010', '26.08.2011', '17.05.2012']
+buy = [79.29, 66.15, 74.82]
 
 Dates2 = ['01.02.2011', '02.02.2012', '03.02.2012']
-low1 = [20.00, -1.36, -0.02]
+sell = [106.25, 87.33, 88.52]
 
 app = dash.Dash(__name__)
 
@@ -62,24 +62,49 @@ def update_return(year):
                            "close": df_apl["CLOSING"],"high": df_apl["HIGH"],"low": df_apl["LOW"],
                            "volume": df_apl["VOLUME"]})
     stocks = stocks.set_index('Date')
-    stock_return = stocks.apply(lambda x: ((x - x[0]) / x[0])*100)
+    stock_return = stocks
 
     trace2 = go.Scatter(x=df_apl['Date'], y=stock_return['open'], mode='lines', name='open')
     trace3 = go.Scatter(x=df_apl['Date'], y=stock_return['close'], mode='lines', name='close')
-    trace4 = go.Scatter(x=['04.02.2010', '26.08.2011', '17.05.2012'], y=high1, marker=dict(size=12),
-    mode='markers', name='Buy',text=["78.66", "64.38","74.2"],
+    
+    trace4 = go.Scatter(x=Dates1, y=buy, marker=dict(color="green",size=12),
+    mode='markers', name='',text=["10000", "13396.96","17896"],
     hovertemplate=
         
         "Date: %{x}<br>" +
-        "close: %{y}<br>"+
-        "High: <b>%{text}</b><br><br>" )
-    trace5 = go.Scatter(x=['01.02.2011', '02.02.2012', '03.02.2012'], y=low1, marker=dict(color="crimson", size=12),
-    mode='markers', name='Sale',text=["101.75", "85.86","86.65"],
+        "Closing Price: %{y}<br>"+
+        "Intial cash: <b>%{text}</b><br><br>" )
+    
+    trace5 = go.Scatter(x=Dates1, y=buy, marker=dict(color="green",size=12),
+    mode='markers', name='',text=["9.46", "34.66","14.68"],
+    hovertemplate=
+        "Final cash: <b>%{text}</b><br><br>" )
+    
+    trace6 = go.Scatter(x=Dates1, y=buy, marker=dict(color="green",size=12),
+    mode='markers', name='Buy',text=["0", "0","0"],
+    hovertemplate=
+        "Profit: <b>%{text}</b><br><br>" )    
+    
+    trace7 = go.Scatter(x=Dates2, y=sell, marker=dict(color="crimson", size=12),
+    mode='markers', name='',text=["9.46", "34.66","1431.28"],
     hovertemplate=
         "Date: %{x}<br>" +
-        "close: %{y}<br>"+
-        "High: <b>%{text}</b><br><br>" )
-    layout2 = go.Layout({'title': 'Returns (%) : AAPL open vs AAPL close ',
+        "Closing Price: %{y}<br>"+
+        "Intial cash: <b>%{text}</b><br><br>" )
+    
+    trace8 = go.Scatter(x=Dates2, y=sell, marker=dict(color="crimson", size=12),
+    mode='markers', name='',text=["13396.96", "1431.28","17896"],
+    hovertemplate=
+        "Final cash: <b>%{text}</b><br><br>" )
+
+    trace9 = go.Scatter(x=Dates2, y=sell, marker=dict(color="crimson", size=12),
+    mode='markers', name='Sell',text=["3386.96", "338.88","4160.82"],
+    hovertemplate=
+        "Profit: <b>%{text}</b><br><br>" )
+    
+      
+    
+    layout2 = go.Layout({'title': 'AAPL open vs AAPL close ',
                          "legend": {"orientation": "h","xanchor":"left"},
                          "xaxis": {
                              "rangeselector": {
@@ -91,7 +116,7 @@ def update_return(year):
                              }}
                          })
 
-    fig = {'data': [trace2,trace3,trace4,trace5],
+    fig = {'data': [trace2,trace3,trace4,trace5,trace6,trace7,trace8,trace9],
            'layout': layout2
            }
     return fig
