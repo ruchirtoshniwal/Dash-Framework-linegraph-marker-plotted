@@ -1,4 +1,5 @@
-# Dash-Framework-graph-plotted
-This Project is given by a  client .
+# AAPL Open Vs AAPL Close By DASH Framework
+
+![](data/Finalplot.png)
 
 
